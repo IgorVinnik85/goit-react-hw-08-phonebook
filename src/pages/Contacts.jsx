@@ -27,7 +27,7 @@ const Contacts = () => {
 
   return (
     <>
-      {showModal && <ModalNotify />}
+      {showModal && <ModalNotify success={'Login Successful'} />}
       {token && (
         <>
           <FormPhonebook />

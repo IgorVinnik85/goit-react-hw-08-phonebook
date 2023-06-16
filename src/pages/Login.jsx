@@ -1,21 +1,31 @@
 import React from 'react';
 import css from '../components/FormPhonebook/FormPhonebook.module.css';
 import { nanoid } from 'nanoid';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { setToken, useLogInMutation } from 'redux/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
+import ModalNotify from 'components/ModalNotify/ModalNotify';
 
 const Login = () => {
-  const [logIn, { isSuccess }] = useLogInMutation();
+  const [logIn] = useLogInMutation();
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let emailInputId = nanoid();
   let passwordId = nanoid();
-  console.log(isSuccess);
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    if (showModal) {
+      const timer = setTimeout(() => {
+        setShowModal(false);
+      }, 1500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showModal]);
 
   const handleInputChange = event => {
     const { name, value } = event.currentTarget;
@@ -40,11 +50,13 @@ const Login = () => {
       console.log('Login successful:', response);
     } catch (error) {
       console.error('Login failed:', error);
+      setShowModal(true);
     }
   };
 
   return (
     <div>
+      {showModal && <ModalNotify error={'Wrong data'} />}
       <form className={css.form} onSubmit={handleSubmit}>
         <label className={css.form} htmlFor={emailInputId}>
           Email
