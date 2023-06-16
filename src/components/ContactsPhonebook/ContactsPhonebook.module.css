@@ -26,3 +26,9 @@
 .spinner {
   margin: 0 auto;
 }
+
+.itemWrapper {
+  overflow-wrap: break-word;
+width: 120px;
+
+}

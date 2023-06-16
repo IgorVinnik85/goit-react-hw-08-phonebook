@@ -46,15 +46,21 @@ export const ContactsPhonebookItem = () => {
         filteredContacts()?.map(el => {
           return (
             <li className={css.item} key={el.id}>
-              <span> {el.name}</span>
-              <span> {el.number}</span>
-              <button
-                className={css.btn}
-                type="button"
-                onClick={() => handleDelete(el.id)}
-              >
-                delete
-              </button>
+              <div className={css.itemWrapper}>
+                <span> {el.name}</span>
+              </div>
+              <div className={css.itemWrapper}> 
+                <span> {el.number}</span>
+              </div>
+              <div className={css.itemWrapper}>
+                <button
+                  className={css.btn}
+                  type="button"
+                  onClick={() => handleDelete(el.id)}
+                >
+                  delete
+                </button>
+              </div>
             </li>
           );
         })}
